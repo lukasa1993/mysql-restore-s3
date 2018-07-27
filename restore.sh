@@ -53,6 +53,9 @@ LATEST_BACKUP=$(aws ${AWS_ARGS} s3 ls s3://$S3_BUCKET/$S3_PREFIX/$MYSQLDUMP_DATA
 DUMP_FILE="/tmp/dump.sql.gz"
 DUMP_FILE_SQL="/tmp/dump.sql"
 
+rm -rf ${DUMP_FILE}
+rm -rf ${DUMP_FILE_SQL}
+
 echo "Fetching ${LATEST_BACKUP} from S3"
 
 aws ${AWS_ARGS} s3 cp s3://${S3_BUCKET}/${LATEST_BACKUP} ${DUMP_FILE}
