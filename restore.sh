@@ -50,8 +50,8 @@ fi
 echo "Finding latest backup"
 
 LATEST_BACKUP=$(aws ${AWS_ARGS} s3 ls s3://$S3_BUCKET/$S3_PREFIX/$MYSQLDUMP_DATABASE --recursive | sort | tail -n 1 | awk '{ print $4 }')
-DUMP_FILE="/tmp/dump.sql.gz"
-DUMP_FILE_SQL="/tmp/dump.sql"
+DUMP_FILE="/tmp/${MYSQLDUMP_DATABASE}_dump.sql.gz"
+DUMP_FILE_SQL="/tmp/${MYSQLDUMP_DATABASE}_dump.sql"
 
 rm -rf ${DUMP_FILE}
 rm -rf ${DUMP_FILE_SQL}
