@@ -38,7 +38,7 @@ export AWS_ACCESS_KEY_ID=$S3_ACCESS_KEY_ID
 export AWS_SECRET_ACCESS_KEY=$S3_SECRET_ACCESS_KEY
 export AWS_DEFAULT_REGION=$S3_REGION
 
-MYSQL_HOST_OPTS="-h $MYSQL_HOST -P $MYSQL_PORT -u$MYSQL_USER -p$MYSQL_PASSWORD"
+MYSQL_HOST_OPTS="--host=$MYSQL_HOST --port=$MYSQL_PORT --user=$MYSQL_USER --password=$MYSQL_PASSWORD"
 
 if [ "${S3_ENDPOINT}" == "**None**" ]; then
   AWS_ARGS=""
@@ -58,7 +58,7 @@ gzip -d dump.sql.gz
 
 echo "Restoring ${LATEST_BACKUP}"
 
-mysql $MYSQL_HOST_OPTS $MYSQLDUMP_DATABASE < dump.sql
+mysql $MYSQL_HOST_OPTS -D $MYSQLDUMP_DATABASE < dump.sql
 
 echo "Restore complete"
 
