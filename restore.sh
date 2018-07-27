@@ -38,8 +38,6 @@ export AWS_ACCESS_KEY_ID=$S3_ACCESS_KEY_ID
 export AWS_SECRET_ACCESS_KEY=$S3_SECRET_ACCESS_KEY
 export AWS_DEFAULT_REGION=$S3_REGION
 
-export PGPASSWORD=$POSTGRES_PASSWORD
-POSTGRES_HOST_OPTS="-h $POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USER"
 MYSQL_HOST_OPTS="-h $MYSQL_HOST -P $MYSQL_PORT -u$MYSQL_USER -p$MYSQL_PASSWORD"
 
 if [ "${S3_ENDPOINT}" == "**None**" ]; then
@@ -51,7 +49,7 @@ fi
 
 echo "Finding latest backup"
 
-LATEST_BACKUP=$(aws ${AWS_ARGS} s3 ls s3://$S3_BUCKET/$S3_PREFIX/$POSTGRES_DATABASE --recursive | sort | tail -n 1 | awk '{ print $4 }')
+LATEST_BACKUP=$(aws ${AWS_ARGS} s3 ls s3://$S3_BUCKET/$S3_PREFIX/$MYSQLDUMP_DATABASE --recursive | sort | tail -n 1 | awk '{ print $4 }')
 
 echo "Fetching ${LATEST_BACKUP} from S3"
 
